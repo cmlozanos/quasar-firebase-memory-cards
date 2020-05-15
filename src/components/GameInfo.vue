@@ -15,14 +15,13 @@ import { date } from 'quasar'
 import { mapGetters } from 'vuex'
 
 export default {
-  props: ['timeStart', 'timeSpent'],
   filters: {
     formatDate: (value) => {
       return date.formatDate(value, 'hh:mm:ss')
     }
   },
   computed: {
-    ...mapGetters('game', ['clicks'])
+    ...mapGetters('game', ['clicks', 'timeSpent'])
   }
 }
 </script>

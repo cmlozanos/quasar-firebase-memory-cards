@@ -2,7 +2,7 @@
   <div>
     <q-space/>
     <div class="row">
-      <div class="col-4 q-pa-xs" v-for="(item, index) in items" :key=index>
+      <div class="col-4 q-pa-xs" v-for="(item, index) in texts" :key=index>
         <q-btn
           outline
           rounded
@@ -23,14 +23,14 @@ export default {
   props: ['items'],
   methods: {
     ...mapActions('game', ['addClick', 'setClickedText', 'setClickedImage', 'setCheckedImage']),
-    addClickToStore (item, clickedImage) {
+    addClickToStore (item) {
       // check if this image was verified before
       if (item.checked) {
         return
       }
 
       // check if has an image checked
-      if (clickedImage === 0) {
+      if (this.clickedImage === 0) {
         this.$q.notify({
           timeout: 200,
           message: 'Select an image first',
@@ -38,34 +38,33 @@ export default {
         })
         return
       }
-      console.log('item: ' + item)
-      this.setClickedText(item.id)
-      Loading.show()
-      this.addClick(1)
-      setTimeout(() => {
-        Loading.hide()
-        this.setClickedImage(0)
 
-        if (item.id === clickedImage) {
-          this.setCheckedImage(item)
-          item.checked = true
-          this.$q.notify({
-            timeout: 200,
-            message: 'Found',
-            color: 'green'
-          })
-        } else {
-          this.$q.notify({
-            timeout: 200,
-            message: 'Not Found',
-            color: 'red'
-          })
-        }
-      }, 300)
+      Loading.show()
+      this.setClickedText(item.id)
+      this.addClick(1)
+      setTimeout(this.completeValidation, 300)
+    },
+    completeValidation (item) {
+      if (this.clickedText === this.clickedImage) {
+        this.setCheckedImage()
+        this.$q.notify({
+          timeout: 300,
+          message: 'Found',
+          color: 'green'
+        })
+      } else {
+        this.$q.notify({
+          timeout: 300,
+          message: 'Not Found',
+          color: 'red'
+        })
+      }
+      this.setClickedImage(0)
+      Loading.hide()
     }
   },
   computed: {
-    ...mapGetters('game', ['clickedImage', 'clickedText'])
+    ...mapGetters('game', ['clickedImage', 'clickedText', 'texts'])
   }
 }
 </script>

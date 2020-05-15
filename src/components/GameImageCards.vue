@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row" >
-      <div class="col-4 q-pa-xs" v-for="(item, index) in items" :key=index>
+      <div class="col-4 q-pa-xs" v-for="(item, index) in images" :key=index>
         <q-img
           :src="item.url"
           :ratio="4/3"
@@ -9,7 +9,7 @@
           @click="addClickToStore(item)"
         >
           <div v-if="(clickedImage === item.id) || item.checked" class="absolute-full text-subtitle2 flex flex-center">
-            <span>{{item.id}}</span>
+            <span v-if="!item.checked">{{item.id}}</span>
             <q-icon
               :color="item.checked? 'green' : 'warning'"
               :name="item.checked ? 'done_all' : 'done'"
@@ -23,17 +23,20 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 export default {
-  props: ['items'],
   methods: {
     ...mapActions('game', ['setClickedImage']),
     addClickToStore (item) {
       if (!item.checked) {
-        this.setClickedImage(item.id)
+        if (item.id === this.clickedImage) {
+          this.setClickedImage(0)
+        } else {
+          this.setClickedImage(item.id)
+        }
       }
     }
   },
   computed: {
-    ...mapGetters('game', ['clickedImage'])
+    ...mapGetters('game', ['clickedImage', 'images'])
   }
 }
 </script>
