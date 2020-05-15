@@ -1,18 +1,15 @@
 <template>
-  <div>
-    <q-space/>
-    <div class="row">
-      <div class="col-4 q-pa-xs" v-for="(item, index) in texts" :key=index>
-        <q-btn
-          outline
-          rounded
-          size='xs'
-          class="full-width"
-          :color="item.checked ? 'green' : 'primary'"
-          @click="addClickToStore(item, clickedImage)"
-          :icon="item.checked ? 'done_all' : 'help_outline'"
-          :label="item.text" />
-      </div>
+  <div class="row q-pt-xl">
+    <div class="col-4 q-pa-xs" v-for="(item, index) in texts" :key=index>
+      <q-btn
+        outline
+        rounded
+        size='xs'
+        class="full-width"
+        :color="item.checked ? 'green' : 'primary'"
+        @click="addClickToStore(item, clickedImage)"
+        :icon="item.checked ? 'done_all' : 'help_outline'"
+        :label="item.text" />
     </div>
   </div>
 </template>
@@ -50,12 +47,14 @@ export default {
         this.$q.notify({
           timeout: 300,
           message: 'Found',
+          progress: true,
           color: 'green'
         })
       } else {
         this.$q.notify({
           timeout: 300,
           message: 'Not Found',
+          progress: true,
           color: 'red'
         })
       }

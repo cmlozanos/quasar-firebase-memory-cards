@@ -19,12 +19,17 @@ export default {
     ...mapGetters('game', ['timeStart', 'items'])
   },
   methods: {
-    ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts'])
+    ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts']),
+    calculateTimeSpent () {
+      const spent = Date.now() - this.timeStart
+      this.setTimeSpent(spent)
+    }
+
   },
   mounted () {
     // init game
     this.setTimeStart()
-    setInterval(() => { this.setTimeSpent(Date.now() - this.timeStart) }, 1000)
+    setInterval(this.calculateTimeSpent, 1000)
 
     const images = []
     this.items.forEach(item => images.push(item))
