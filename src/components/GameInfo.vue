@@ -17,16 +17,9 @@ export default {
       const seconds = Math.trunc(value / 1000)
       const minutes = Math.trunc(seconds / 60)
       const hours = Math.trunc(minutes / 24)
-      console.log('hours: ' + hours + ' minutes: ' + minutes + ' seconds: ' + seconds)
-      /*
-      if (hours === 0) {
-        if (minutes === 0) {
-          return seconds + ' s'
-        }
-        return minutes + ' m ' + (seconds - (minutes * 60)) + ' s'
-      }
-      */
-      return hours + ' h ' + (minutes - (hours * 60)) + ' m ' + (seconds - (minutes - (hours * 60)) * 60) + ' s'
+      const realMinutes = (minutes - (hours * 60))
+      const realSeconds = (seconds - (minutes - (hours * 60)) * 60)
+      return hours + ' h ' + realMinutes + ' m ' + realSeconds + ' s'
     }
   },
   computed: {
