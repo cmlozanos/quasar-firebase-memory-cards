@@ -1,11 +1,21 @@
 <template>
   <q-banner>
-    <q-chip outline color="primary" text-color="white" icon="mouse">
-      {{clicks}}
-    </q-chip>
-    <q-chip outline color="primary" text-color="white" icon="update">
-      Spent: {{timeSpent | formatDate}}
-    </q-chip>
+    <div class="row justify-end">
+      <div class="col-6">
+        <div class="row justify-start">
+          <q-chip outline color="primary" text-color="white" icon="mouse">
+            {{clicks}}
+          </q-chip>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row justify-end">
+          <q-chip outline color="primary" text-color="white" icon="update">
+            Spent: {{timeSpent | formatDate}}
+          </q-chip>
+        </div>
+      </div>
+    </div>
   </q-banner>
 </template>
 <script>
