@@ -3,13 +3,11 @@
     <div class="col-12 q-pa-xs" v-for="(item, index) in texts" :key=index>
       <q-btn
         outline
-        rounded
         size='md'
         class="full-width"
         :disabled="item.checked"
         :color="item.checked ? 'green' : 'primary'"
         @click="addClickToStore(item, clickedImage)"
-        :icon="item.checked ? 'done_all' : 'help_outline'"
         :label="item.text" />
     </div>
   </div>
