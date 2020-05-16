@@ -10,16 +10,14 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-
+import { date } from 'quasar'
 export default {
   filters: {
     formatDate: (value) => {
-      const seconds = Math.trunc(value / 1000)
-      const minutes = Math.trunc(seconds / 60)
-      const hours = Math.trunc(minutes / 24)
-      const realMinutes = (minutes - (hours * 60))
-      const realSeconds = (seconds - (minutes - (hours * 60)) * 60)
-      return hours + ' h ' + realMinutes + ' m ' + realSeconds + ' s'
+      const dateValue = new Date(value)
+      const dateValueOffset = dateValue.getTimezoneOffset()
+      const dateWithoutOffset = date.addToDate(dateValue, { minutes: dateValueOffset })
+      return dateWithoutOffset.toLocaleTimeString()
     }
   },
   computed: {
