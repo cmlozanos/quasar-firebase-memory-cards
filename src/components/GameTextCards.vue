@@ -5,10 +5,10 @@
         outline
         size='md'
         class="full-width"
-        :disabled="item.checked"
-        :color="item.checked ? 'green' : 'primary'"
+        :disabled="item.data.checked"
+        :color="item.data.checked ? 'green' : 'primary'"
         @click="addClickToStore(item, clickedImage)"
-        :label="item.text" />
+        :label="item.data.text" />
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     ...mapActions('game', ['addClick', 'setClickedText', 'setClickedImage', 'setCheckedImage']),
     addClickToStore (item) {
       // check if this image was verified before
-      if (item.checked) {
+      if (item.data.checked) {
         return
       }
 

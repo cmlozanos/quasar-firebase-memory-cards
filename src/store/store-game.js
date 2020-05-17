@@ -5,53 +5,7 @@ const state = {
   timeStart: null,
   timeSpent: null,
   itemImages: [],
-  itemTexts: [],
-  items: [{
-    id: 1,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_1',
-    checked: false
-  }, {
-    id: 2,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_2',
-    checked: false
-  }, {
-    id: 3,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_3',
-    checked: false
-  }, {
-    id: 4,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_4',
-    checked: false
-  }, {
-    id: 5,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_5',
-    checked: false
-  }, {
-    id: 6,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_6',
-    checked: false
-  }, {
-    id: 7,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_7',
-    checked: false
-  }, {
-    id: 8,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_8',
-    checked: false
-  }, {
-    id: 9,
-    url: 'https://placeimg.com/500/300/nature?t=' + Math.random(),
-    text: 'texto_9',
-    checked: false
-  }]
+  itemTexts: []
 }
 
 const mutations = {
@@ -65,8 +19,7 @@ const mutations = {
     state.clickedText = value
   },
   setCheckedImage (state) {
-    const index = state.items.findIndex(stateItem => stateItem.id === state.clickedImage)
-    state.items[index].checked = true
+    state.items[state.clickedImage].checked = true
   },
   setTimeStart (state) {
     state.timeStart = Date.now()

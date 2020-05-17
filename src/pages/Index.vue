@@ -16,30 +16,38 @@ export default {
     gameTextCards: require('src/components/GameTextCards.vue').default
   },
   computed: {
-    ...mapGetters('game', ['timeStart', 'items'])
+    ...mapGetters('game', ['timeStart']),
+    ...mapGetters('cards', ['cards'])
   },
   methods: {
     ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts']),
     calculateTimeSpent () {
       const spent = Date.now() - this.timeStart
       this.setTimeSpent(spent)
-    }
+    },
+    initGame () {
+      // init game
+      this.setTimeStart()
+      setInterval(this.calculateTimeSpent, 1000)
 
+      const cardsShuffled = []
+      Object.entries(this.cards).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
+      shuffle(cardsShuffled)
+      const cardsSelected = cardsShuffled.slice(0, 4)
+
+      const images = []
+      cardsSelected.forEach(element => images.push(element))
+      shuffle(images)
+      this.setItemImages(images)
+
+      const texts = []
+      cardsSelected.forEach(element => texts.push(element))
+      shuffle(texts)
+      this.setItemTexts(texts)
+    }
   },
   mounted () {
-    // init game
-    this.setTimeStart()
-    setInterval(this.calculateTimeSpent, 1000)
-
-    const images = []
-    this.items.forEach(item => images.push(item))
-    shuffle(images)
-    this.setItemImages(images)
-
-    const texts = []
-    this.items.forEach(item => texts.push(item))
-    shuffle(texts)
-    this.setItemTexts(texts)
+    this.initGame()
   }
 }
 </script>
