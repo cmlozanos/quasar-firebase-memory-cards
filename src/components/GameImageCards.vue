@@ -1,6 +1,6 @@
 <template>
   <div class="row" >
-    <div class="col-4 q-pa-xs" v-for="(item, index) in images" :key=index>
+    <div :class="images.length % 3 == 0 ? 'col-4' : 'col-6'" class="q-pa-xs" v-for="(item, index) in images" :key=index>
       <q-img
         :src="item.data.url"
         :ratio="4/3"
@@ -8,8 +8,9 @@
         @click="addClickToStore(item)"
       >
         <div v-if="(clickedImage === item.id) || item.data.checked" class="absolute-full text-subtitle2 flex flex-center">
-          <span v-if="!item.data.checked">{{item.id}}</span>
-          <q-icon
+          <!-- <span v-if="!item.data.checked">{{item.id}}</span> -->
+          <span v-if="item.data.checked">{{item.data.text}}</span>
+          <q-icon v-if="!item.data.checked"
             :color="item.data.checked? 'green' : 'warning'"
             :name="item.data.checked ? 'done_all' : 'done'"
           />

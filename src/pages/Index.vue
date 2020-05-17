@@ -33,7 +33,8 @@ export default {
       const cardsShuffled = []
       Object.entries(this.cards).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
       shuffle(cardsShuffled)
-      const cardsSelected = cardsShuffled.slice(0, 4)
+      // split by 3,4,6,8,9
+      const cardsSelected = cardsShuffled.slice(0, 9)
       this.setCardsSelected(cardsSelected)
 
       const images = []
