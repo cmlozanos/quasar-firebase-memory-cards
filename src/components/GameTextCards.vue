@@ -16,7 +16,6 @@
 import { mapActions, mapGetters } from 'vuex'
 import { Loading } from 'quasar'
 export default {
-  props: ['items'],
   methods: {
     ...mapActions('game', ['addClick', 'setClickedText', 'setClickedImage', 'setCheckedImage']),
     addClickToStore (item) {

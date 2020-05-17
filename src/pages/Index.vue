@@ -20,7 +20,7 @@ export default {
     ...mapGetters('cards', ['cards'])
   },
   methods: {
-    ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts']),
+    ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected']),
     calculateTimeSpent () {
       const spent = Date.now() - this.timeStart
       this.setTimeSpent(spent)
@@ -34,6 +34,7 @@ export default {
       Object.entries(this.cards).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
       shuffle(cardsShuffled)
       const cardsSelected = cardsShuffled.slice(0, 4)
+      this.setCardsSelected(cardsSelected)
 
       const images = []
       cardsSelected.forEach(element => images.push(element))

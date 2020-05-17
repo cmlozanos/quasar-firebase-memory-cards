@@ -5,7 +5,8 @@ const state = {
   timeStart: null,
   timeSpent: null,
   itemImages: [],
-  itemTexts: []
+  itemTexts: [],
+  cardsSelected: []
 }
 
 const mutations = {
@@ -19,7 +20,8 @@ const mutations = {
     state.clickedText = value
   },
   setCheckedImage (state) {
-    state.items[state.clickedImage].checked = true
+    const index = state.cardsSelected.findIndex(card => card.id === state.clickedImage)
+    state.cardsSelected[index].data.checked = true
   },
   setTimeStart (state) {
     state.timeStart = Date.now()
@@ -32,6 +34,9 @@ const mutations = {
   },
   setItemTexts (state, value) {
     state.itemTexts = value
+  },
+  setCardsSelected (state, value) {
+    state.cardsSelected = value
   }
 }
 
@@ -59,6 +64,9 @@ const actions = {
   },
   setItemTexts ({ commit }, value) {
     commit('setItemTexts', value)
+  },
+  setCardsSelected ({ commit }, value) {
+    commit('setCardsSelected', value)
   }
 }
 
@@ -68,7 +76,7 @@ const getters = {
   clickedText: (state) => state.clickedText,
   timeStart: (state) => state.timeStart,
   timeSpent: (state) => state.timeSpent,
-  items: (state) => state.items,
+  cardsSelected: (state) => state.cardsSelected,
   images: (state) => state.itemImages,
   texts: (state) => state.itemTexts
 }

@@ -1,3 +1,6 @@
+import Vue from 'vue'
+import { uid } from 'quasar'
+
 const state = {
   cards: {
     ID1: {
@@ -48,8 +51,19 @@ const state = {
   }
 }
 const mutations = {
+  addCard (state, payload) {
+    Vue.set(state.cards, payload.id, payload.card)
+  }
 }
 const actions = {
+  addCard ({ commit }, card) {
+    const id = uid()
+    const payload = {
+      id: id,
+      card: card
+    }
+    commit('addCard', payload)
+  }
 }
 const getters = {
   cards: (state) => state.cards
