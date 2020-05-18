@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import game from './store-game'
 import cards from './store-cards'
 import gameplays from './store-gameplays'
+import auth from './store-auth'
 
 Vue.use(Vuex)
 
@@ -21,7 +22,8 @@ export default function (/* { ssrContext } */) {
     modules: {
       game,
       cards,
-      gameplays
+      gameplays,
+      auth
     },
 
     // enable strict mode (adds overhead!)

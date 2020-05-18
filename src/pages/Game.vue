@@ -5,41 +5,18 @@
       <game-image-cards></game-image-cards>
       <game-text-cards></game-text-cards>
     </div>
-    <div
-      class="q-col-gutter-md row items-start"
-      v-if="!playing"
-    >
-      <div class="col-12">
-        <q-img v-if="finished && !end" src="~assets/game-finished.png">
-          <div class="absolute-bottom row">
-            <q-btn outline icon="play_arrow" class="col-6" @click="initGame">Next Play</q-btn>
-            <q-btn outline icon="list" class="col-6" to="/gameplays">Game Plays</q-btn>
-          </div>
-        </q-img>
-        <q-img v-if="!finished && !end" src="~assets/game-press-start.jpg">
-          <div class="absolute-bottom">
-            <q-btn outline icon="play_arrow" class="full-width" @click="initGame">START</q-btn>
-          </div>
-        </q-img>
-        <q-img v-if="end" src="~assets/game-end.jpg">
-          <div class="absolute-bottom row">
-            <q-btn outline icon="list" class="col-6" to="/cards">Cards</q-btn>
-            <q-btn outline icon="list" class="col-6" to="/gameplays">Game Plays</q-btn>
-          </div>
-        </q-img>
-      </div>
-    </div>
+    <game-finished></game-finished>
   </q-page>
 </template>
 
 <script>
-import { shuffle } from 'src/functions/function-shuffle-array'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     gameInfo: require('src/components/GameInfo.vue').default,
     gameImageCards: require('src/components/GameImageCards.vue').default,
-    gameTextCards: require('src/components/GameTextCards.vue').default
+    gameTextCards: require('src/components/GameTextCards.vue').default,
+    gameFinished: require('src/components/GameFinished.vue').default
   },
   computed: {
     ...mapGetters('game', ['timeStart', 'playing', 'finished', 'interval', 'size', 'end']),
@@ -50,49 +27,6 @@ export default {
     calculateTimeSpent () {
       const spent = Date.now() - this.timeStart
       this.setTimeSpent(spent)
-    },
-    initGame () {
-      const pendingCards = Object.entries(this.cards).filter(([key, value]) => !value.checked)
-      if (pendingCards.length === 0) {
-        this.$q.notify({
-          timeout: 500,
-          message: 'No more games available',
-          color: 'red'
-        })
-        this.setEnd(true)
-        return
-      } else if (pendingCards.length <= this.size) {
-        this.$q.notify({
-          timeout: 500,
-          message: 'There is no items enough',
-          color: 'red'
-        })
-        this.setEnd(true)
-        return
-      }
-      this.initStore()
-
-      if (this.interval) {
-        clearInterval(this.interval)
-      }
-      const interval = setInterval(this.calculateTimeSpent, 1000)
-      this.saveInterval(interval)
-
-      const cardsShuffled = []
-      pendingCards.forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
-      shuffle(cardsShuffled)
-      const cardsSelected = cardsShuffled.slice(0, this.size)
-      this.setCardsSelected(cardsSelected)
-
-      const images = []
-      cardsSelected.forEach(element => images.push(element))
-      shuffle(images)
-      this.setItemImages(images)
-
-      const texts = []
-      cardsSelected.forEach(element => texts.push(element))
-      shuffle(texts)
-      this.setItemTexts(texts)
     }
   },
   mounted () {

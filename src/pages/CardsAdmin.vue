@@ -2,12 +2,12 @@
   <div class="q-pa-md">
     <q-page>
       <q-list separator>
-        <card
+        <card-admin
           v-for="(card,index) in cards"
           :key="index"
           :card="card"
           :id="index">
-        </card>
+        </card-admin>
       </q-list>
     </q-page>
     <q-page-sticky position="bottom" :offset="[0, 18]">
@@ -23,7 +23,7 @@
 import { mapGetters } from 'vuex'
 export default {
   components: {
-    card: require('components/Card/Card.vue').default,
+    cardAdmin: require('components/Card/CardAdmin.vue').default,
     addCard: require('components/Card/Modal/AddCard.vue').default
   },
   data () {
