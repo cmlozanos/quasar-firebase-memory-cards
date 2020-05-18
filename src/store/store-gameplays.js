@@ -7,7 +7,6 @@ const state = {
 }
 const mutations = {
   addGameplay (state, payload) {
-    console.log('addGamePlay')
     Vue.set(state.gameplays, payload.id, payload.gameplay)
   },
   updateGameplay (state, payload) {

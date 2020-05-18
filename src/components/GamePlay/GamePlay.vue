@@ -18,12 +18,10 @@ export default {
   props: ['gameplay', 'id'],
   filters: {
     formatDate: (value) => {
-      console.log('value: ' + value)
       const dateValue = new Date(value)
       const dateValueOffset = dateValue.getTimezoneOffset()
       const dateWithoutOffset = date.addToDate(dateValue, { minutes: dateValueOffset })
       const result = dateWithoutOffset.toLocaleTimeString()
-      console.log('result: ' + result)
       return result
     }
   }

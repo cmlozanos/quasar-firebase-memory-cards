@@ -121,7 +121,6 @@ const actions = {
         spent: dateWithoutOffset,
         spent_formatted: time
       }
-      console.log('STATS: ' + JSON.stringify(data))
       dispatch('addGameplay', data, { root: true })
       clearInterval(state.interval)
       commit('setFinished', true)
