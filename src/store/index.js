@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import game from './store-game'
 import cards from './store-cards'
+import gameplays from './store-gameplays'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       game,
-      cards
+      cards,
+      gameplays
     },
 
     // enable strict mode (adds overhead!)

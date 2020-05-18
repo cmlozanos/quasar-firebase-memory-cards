@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh lpR fFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -39,6 +39,14 @@
           </q-item-section>
           <q-item-section>
             <q-item-label>Cards</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable to="/gameplays" exact>
+          <q-item-section avatar>
+            <q-icon name="list" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Game Plays</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>

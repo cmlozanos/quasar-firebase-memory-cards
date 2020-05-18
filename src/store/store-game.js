@@ -3,6 +3,7 @@ import { date } from 'quasar'
 const state = {
   playing: false,
   finished: false,
+  end: false,
   clicks: 0,
   clickedImage: 0,
   clickedText: 0,
@@ -11,7 +12,8 @@ const state = {
   itemImages: [],
   itemTexts: [],
   cardsSelected: [],
-  interval: null
+  interval: null,
+  size: 4
 }
 
 const mutations = {
@@ -50,6 +52,9 @@ const mutations = {
   },
   setFinished (state, value) {
     state.finished = value
+  },
+  setEnd (state, value) {
+    state.end = value
   },
   setClicks (state, value) {
     state.clicks = value
@@ -99,7 +104,7 @@ const actions = {
       commit('setUnCheckedImage', index)
     })
   },
-  checkGameStatus ({ commit }, value) {
+  checkGameStatus ({ commit, dispatch }, value) {
     const pending = state.cardsSelected.filter(card => !card.data.checked).length
     if (pending === 0) {
       const dateTimeStart = new Date(state.timeStart)
@@ -117,6 +122,7 @@ const actions = {
         spent_formatted: time
       }
       console.log('STATS: ' + JSON.stringify(data))
+      dispatch('addGameplay', data, { root: true })
       clearInterval(state.interval)
       commit('setFinished', true)
       commit('setPlaying', false)
@@ -125,12 +131,16 @@ const actions = {
   setFinished ({ commit }, value) {
     commit('setFinished', value)
   },
+  setEnd ({ commit }, value) {
+    commit('setEnd', value)
+  },
   saveInterval ({ commit }, value) {
     commit('saveInterval', value)
   },
   initStore ({ commit }) {
     commit('setPlaying', true)
     commit('setFinished', false)
+    commit('setEnd', false)
     commit('setClicks', 0)
     commit('setTimeStart')
   }
@@ -147,7 +157,9 @@ const getters = {
   texts: (state) => state.itemTexts,
   playing: (state) => state.playing,
   finished: (state) => state.finished,
-  interval: (state) => state.interval
+  interval: (state) => state.interval,
+  size: (state) => state.size,
+  end: (state) => state.end
 }
 
 export default {

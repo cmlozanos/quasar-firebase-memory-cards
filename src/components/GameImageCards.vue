@@ -8,9 +8,9 @@
         @click="addClickToStore(item)"
       >
         <div v-if="(clickedImage === item.id) || item.data.checked" class="absolute-full text-subtitle2 flex flex-center">
-          <!-- <span v-if="!item.data.checked">{{item.id}}</span> -->
           <span v-if="item.data.checked">{{item.data.text}}</span>
           <q-icon v-if="!item.data.checked"
+            size="xl"
             :color="item.data.checked? 'green' : 'warning'"
             :name="item.data.checked ? 'done_all' : 'done'"
           />
