@@ -24,17 +24,23 @@
       content-class="bg-grey-1"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Game
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item-label header>Tools</q-item-label>
+        <q-item clickable to="/game" exact>
+          <q-item-section avatar>
+            <q-icon name="mouse" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Game</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable to="/cards" exact>
+          <q-item-section avatar>
+            <q-icon name="list" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Cards</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
@@ -45,26 +51,11 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink'
-
 export default {
   name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: [
-        {
-          title: 'Game',
-          caption: 'quasar.dev',
-          icon: 'school',
-          link: 'https://www.google.es'
-        }
-      ]
+      leftDrawerOpen: false
     }
   }
 }

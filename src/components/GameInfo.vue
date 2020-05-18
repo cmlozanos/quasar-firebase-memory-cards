@@ -1,15 +1,11 @@
 <template>
   <q-banner>
     <div class="row justify-end">
-      <div class="col-6">
-        <div class="row justify-start">
+      <div class="col-12">
+        <div class="row justify-end">
           <q-chip outline color="primary" text-color="white" icon="mouse">
             {{clicks}}
           </q-chip>
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row justify-end">
           <q-chip outline color="primary" text-color="white" icon="update">
             Spent: {{timeSpent | formatDate}}
           </q-chip>

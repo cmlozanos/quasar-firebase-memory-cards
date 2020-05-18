@@ -31,10 +31,10 @@ export default {
       setInterval(this.calculateTimeSpent, 1000)
 
       const cardsShuffled = []
-      Object.entries(this.cards).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
+      Object.entries(this.cards).filter(([key, value]) => !value.checked).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
       shuffle(cardsShuffled)
       // split by 3,4,6,8,9
-      const cardsSelected = cardsShuffled.slice(0, 9)
+      const cardsSelected = cardsShuffled.slice(0, 4)
       this.setCardsSelected(cardsSelected)
 
       const images = []

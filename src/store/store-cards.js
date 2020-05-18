@@ -53,6 +53,12 @@ const state = {
 const mutations = {
   addCard (state, payload) {
     Vue.set(state.cards, payload.id, payload.card)
+  },
+  updateCard (state, payload) {
+    Object.assign(state.cards[payload.id], payload.updates)
+  },
+  deleteCard (state, id) {
+    Vue.delete(state.cards, id)
   }
 }
 const actions = {
@@ -63,6 +69,12 @@ const actions = {
       card: card
     }
     commit('addCard', payload)
+  },
+  updateCard ({ commit }, payload) {
+    commit('updateCard', payload)
+  },
+  deleteCard ({ commit }, id) {
+    commit('deleteCard', id)
   }
 }
 const getters = {

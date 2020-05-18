@@ -19,8 +19,7 @@ const mutations = {
   setClickedText (state, value) {
     state.clickedText = value
   },
-  setCheckedImage (state) {
-    const index = state.cardsSelected.findIndex(card => card.id === state.clickedImage)
+  setCheckedImage (state, index) {
     state.cardsSelected[index].data.checked = true
   },
   setTimeStart (state) {
@@ -51,7 +50,8 @@ const actions = {
     commit('setClickedText', value)
   },
   setCheckedImage ({ commit }) {
-    commit('setCheckedImage')
+    const index = state.cardsSelected.findIndex(card => card.id === state.clickedImage)
+    commit('setCheckedImage', index)
   },
   setTimeStart ({ commit }) {
     commit('setTimeStart')
