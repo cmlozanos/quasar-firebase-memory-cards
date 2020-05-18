@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" class="mobile">
     <router-view />
   </div>
 </template>
@@ -9,3 +9,8 @@ export default {
   name: 'App'
 }
 </script>
+<style>
+body {
+  max-width: 730px;
+}
+</style>

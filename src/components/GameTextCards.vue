@@ -17,7 +17,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { Loading } from 'quasar'
 export default {
   methods: {
-    ...mapActions('game', ['addClick', 'setClickedText', 'setClickedImage', 'setCheckedImage']),
+    ...mapActions('game', ['addClick', 'setClickedText', 'setClickedImage', 'setCheckedImage', 'checkGameStatus']),
     addClickToStore (item) {
       // check if this image was verified before
       if (item.data.checked) {
@@ -48,6 +48,7 @@ export default {
           progress: true,
           color: 'green'
         })
+        setTimeout(this.checkGameStatus, 300)
       } else {
         this.$q.notify({
           timeout: 300,

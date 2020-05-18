@@ -1,21 +1,21 @@
 <template>
   <q-banner>
     <div class="row justify-end">
-      <div class="col-12">
-        <div class="row justify-end">
-          <q-chip outline color="primary" text-color="white" icon="mouse">
-            {{clicks}}
-          </q-chip>
-          <q-chip outline color="primary" text-color="white" icon="update">
-            Spent: {{timeSpent | formatDate}}
-          </q-chip>
-        </div>
-      </div>
+      <q-chip outline color="red-5" icon="close" clickable @click="exitPlaying">
+        Exit
+      </q-chip>
+      <q-space/>
+      <q-chip outline square color="black-5" text-color="white" icon="mouse">
+        {{clicks}}
+      </q-chip>
+      <q-chip outline square color="black-5" text-color="white" icon="update">
+        Spent: {{timeSpent | formatDate}}
+      </q-chip>
     </div>
   </q-banner>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { date } from 'quasar'
 export default {
   filters: {
@@ -28,6 +28,9 @@ export default {
   },
   computed: {
     ...mapGetters('game', ['clicks', 'timeSpent'])
+  },
+  methods: {
+    ...mapActions('game', ['exitPlaying'])
   }
 }
 </script>

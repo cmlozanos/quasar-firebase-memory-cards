@@ -1,4 +1,8 @@
+import { date } from 'quasar'
+
 const state = {
+  playing: false,
+  finished: false,
   clicks: 0,
   clickedImage: 0,
   clickedText: 0,
@@ -6,7 +10,8 @@ const state = {
   timeSpent: null,
   itemImages: [],
   itemTexts: [],
-  cardsSelected: []
+  cardsSelected: [],
+  interval: null
 }
 
 const mutations = {
@@ -22,6 +27,9 @@ const mutations = {
   setCheckedImage (state, index) {
     state.cardsSelected[index].data.checked = true
   },
+  setUnCheckedImage (state, index) {
+    state.cardsSelected[index].data.checked = false
+  },
   setTimeStart (state) {
     state.timeStart = Date.now()
   },
@@ -36,6 +44,18 @@ const mutations = {
   },
   setCardsSelected (state, value) {
     state.cardsSelected = value
+  },
+  setPlaying (state, value) {
+    state.playing = value
+  },
+  setFinished (state, value) {
+    state.finished = value
+  },
+  setClicks (state, value) {
+    state.clicks = value
+  },
+  saveInterval (state, value) {
+    state.interval = value
   }
 }
 
@@ -67,6 +87,52 @@ const actions = {
   },
   setCardsSelected ({ commit }, value) {
     commit('setCardsSelected', value)
+  },
+  setPlaying ({ commit }, value) {
+    commit('setPlaying', value)
+  },
+  exitPlaying ({ commit }) {
+    commit('setPlaying', false)
+    const checkedCards = state.cardsSelected.filter(card => card.data.checked)
+    checkedCards.forEach(card => {
+      const index = state.cardsSelected.findIndex(cardSelected => cardSelected.id === card.id)
+      commit('setUnCheckedImage', index)
+    })
+  },
+  checkGameStatus ({ commit }, value) {
+    const pending = state.cardsSelected.filter(card => !card.data.checked).length
+    if (pending === 0) {
+      const dateTimeStart = new Date(state.timeStart)
+      const dateTimeStartOffset = dateTimeStart.getTimezoneOffset()
+      const dateTimeStartWithoutOffset = date.addToDate(dateTimeStart, { minutes: dateTimeStartOffset })
+
+      const dateValue = new Date(state.timeSpent)
+      const dateValueOffset = dateValue.getTimezoneOffset()
+      const dateWithoutOffset = date.addToDate(dateValue, { minutes: dateValueOffset })
+      const time = dateWithoutOffset.toLocaleTimeString()
+      const data = {
+        clicks: state.clicks,
+        init: dateTimeStartWithoutOffset,
+        spent: dateWithoutOffset,
+        spent_formatted: time
+      }
+      console.log('STATS: ' + JSON.stringify(data))
+      clearInterval(state.interval)
+      commit('setFinished', true)
+      commit('setPlaying', false)
+    }
+  },
+  setFinished ({ commit }, value) {
+    commit('setFinished', value)
+  },
+  saveInterval ({ commit }, value) {
+    commit('saveInterval', value)
+  },
+  initStore ({ commit }) {
+    commit('setPlaying', true)
+    commit('setFinished', false)
+    commit('setClicks', 0)
+    commit('setTimeStart')
   }
 }
 
@@ -78,7 +144,10 @@ const getters = {
   timeSpent: (state) => state.timeSpent,
   cardsSelected: (state) => state.cardsSelected,
   images: (state) => state.itemImages,
-  texts: (state) => state.itemTexts
+  texts: (state) => state.itemTexts,
+  playing: (state) => state.playing,
+  finished: (state) => state.finished,
+  interval: (state) => state.interval
 }
 
 export default {

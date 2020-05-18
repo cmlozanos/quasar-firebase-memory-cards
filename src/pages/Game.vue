@@ -1,8 +1,27 @@
 <template>
   <q-page padding>
-    <game-info ></game-info>
-    <game-image-cards></game-image-cards>
-    <game-text-cards></game-text-cards>
+    <div v-if="playing">
+      <game-info ></game-info>
+      <game-image-cards></game-image-cards>
+      <game-text-cards></game-text-cards>
+    </div>
+    <div
+      class="q-col-gutter-md row items-start"
+      v-if="!playing"
+    >
+      <div class="col-12">
+        <q-img v-if="finished" src="~assets/game-finished.png">
+          <div class="absolute-bottom">
+            <q-btn outline icon="play_arrow" class="full-width" @click="initGame">Play Again</q-btn>
+          </div>
+        </q-img>
+        <q-img v-if="!finished" src="~assets/game-press-start.jpg">
+          <div class="absolute-bottom">
+            <q-btn outline icon="play_arrow" class="full-width" @click="initGame">START</q-btn>
+          </div>
+        </q-img>
+      </div>
+    </div>
   </q-page>
 </template>
 
@@ -16,19 +35,23 @@ export default {
     gameTextCards: require('src/components/GameTextCards.vue').default
   },
   computed: {
-    ...mapGetters('game', ['timeStart']),
+    ...mapGetters('game', ['timeStart', 'playing', 'finished', 'interval']),
     ...mapGetters('cards', ['cards'])
   },
   methods: {
-    ...mapActions('game', ['setTimeStart', 'setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected']),
+    ...mapActions('game', ['setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected', 'saveInterval', 'initStore']),
     calculateTimeSpent () {
       const spent = Date.now() - this.timeStart
       this.setTimeSpent(spent)
     },
     initGame () {
-      // init game
-      this.setTimeStart()
-      setInterval(this.calculateTimeSpent, 1000)
+      this.initStore()
+
+      if (this.interval) {
+        clearInterval(this.interval)
+      }
+      const interval = setInterval(this.calculateTimeSpent, 1000)
+      this.saveInterval(interval)
 
       const cardsShuffled = []
       Object.entries(this.cards).filter(([key, value]) => !value.checked).forEach(([key, value]) => cardsShuffled.push({ id: key, data: value }))
