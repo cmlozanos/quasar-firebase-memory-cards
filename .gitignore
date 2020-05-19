@@ -33,4 +33,4 @@ yarn-error.log*
 *.sln
 
 # Firebase data
-/boot/firebase.js
+/src/boot/firebase.js
