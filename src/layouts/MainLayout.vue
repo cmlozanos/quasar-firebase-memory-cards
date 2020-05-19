@@ -12,7 +12,10 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-toolbar-title class="absolute-center">
-          <q-btn flat to="/" label="MemoryOn"/>
+          <q-btn v-if="loggedIn" flat to="/" label="MemoryOn"/>
+          <span v-else class="q-btn__content text-center col items-center q-anchor--skip justify-center row">
+            <span class="block headerDisabled">MemoryOn</span>
+          </span>
         </q-toolbar-title>
         <q-btn v-if="!loggedIn" to="/auth" icon-right="account_circle" flat label="login"  class="absolute-right"/>
         <q-btn v-else @click="logoutUser" icon-right="account_circle" flat label="logout"  class="absolute-right"/>
@@ -24,6 +27,7 @@
       show-if-above
       bordered
       content-class="bg-grey-1"
+      v-if="loggedIn"
     >
       <q-scroll-area class="scrollAreaMenu">
         <q-list>
@@ -101,5 +105,26 @@ export default {
   height: calc(100% - 150px);
   margin-top: 150px;
   border-right: 1px solid #ddd
+}
+.headerDisabled {
+  box-sizing:border-box;
+  color:rgb(255, 255, 255);
+  cursor:pointer;
+  direction:ltr;
+  display:block;
+  font-family:Roboto, -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:14px;
+  font-weight:500;
+  height:24px;
+  letter-spacing:0.21px;
+  line-height:24.01px;
+  text-align:center;
+  text-size-adjust:100%;
+  text-transform:uppercase;
+  user-select:none;
+  white-space:nowrap;
+  width:80.125px;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:
 }
 </style>

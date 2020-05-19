@@ -8,7 +8,6 @@
     <q-item-section>{{card.text}}</q-item-section>
     <q-item-section>
       <div class="row q-gutter-sm justify-end">
-        <q-btn outline round disable :color="card.checked? 'green' : 'orange-5'" icon="check"></q-btn>
         <q-btn outline round color="blue-5" icon="edit" @click.stop="showModal = true"></q-btn>
         <q-btn outline round color="red-5" icon="delete" @click.stop="promptToDelete(id)"></q-btn>
       </div>

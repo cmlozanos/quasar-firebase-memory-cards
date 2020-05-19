@@ -6,10 +6,10 @@
     <p>
       <q-img
         src="~assets/index.png"
-        style="width:100vw;max-width:300px;"
+        style="width:50vw"
       >
         <div class="absolute-bottom">
-          <q-btn outline icon="play_arrow" class="full-width" to="/game">START</q-btn>
+          <q-btn outline icon="touch_app" class="full-width" to="/game">Go to the game</q-btn>
         </div>
       </q-img>
     </p>
