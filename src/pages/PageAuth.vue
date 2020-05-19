@@ -12,8 +12,8 @@
             align="justify"
             narrow-indicator
           >
-            <q-tab name="login" label="Login" />
-            <q-tab name="register" label="Register" />
+            <q-tab name="login" :label="$t('auth.login')" />
+            <q-tab name="register" :label="$t('auth.register')" />
           </q-tabs>
 
           <q-separator />

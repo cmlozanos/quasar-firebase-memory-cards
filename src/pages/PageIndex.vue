@@ -1,7 +1,7 @@
 <template>
   <div class="fixed-center text-center">
     <p class="text-faded">
-      Welcome to Memory<strong>On</strong>
+      {{ $t('index.welcome') }}
     </p>
     <p>
       <q-img
@@ -9,7 +9,7 @@
         style="width:50vw"
       >
         <div class="absolute-bottom">
-          <q-btn outline icon="touch_app" class="full-width" to="/game">Go to the game</q-btn>
+          <q-btn outline icon="touch_app" class="full-width" to="/game">{{$t('index.goToTheGame')}}</q-btn>
         </div>
       </q-img>
     </p>
