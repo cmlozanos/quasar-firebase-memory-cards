@@ -37,9 +37,9 @@ export default {
       Loading.show()
       this.setClickedText(item.id)
       this.addClick(1)
-      setTimeout(this.completeValidation, 300)
+      setTimeout(this.completeClick, 300)
     },
-    completeValidation (item) {
+    completeClick (item) {
       if (this.clickedText === this.clickedImage) {
         this.setCheckedImage()
         this.$q.notify({

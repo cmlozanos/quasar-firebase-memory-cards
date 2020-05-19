@@ -7,6 +7,7 @@ const routes = [
       { name: 'Home', path: '/', component: () => import('pages/PageIndex.vue') },
       { name: 'Game', path: '/game', component: () => import('pages/PageGame.vue') },
       { name: 'Cards', path: '/cards', component: () => import('pages/PageCards.vue') },
+      { name: 'UserCards', path: '/cards-user', component: () => import('pages/PageUserCards.vue') },
       { name: 'CardsAdmin', path: '/cards-admin', component: () => import('pages/PageCardsAdmin.vue') },
       { name: 'Gameplays', path: '/gameplays', component: () => import('pages/PageGamePlays.vue') },
       { name: 'Auth', path: '/auth', component: () => import('pages/PageAuth.vue') }

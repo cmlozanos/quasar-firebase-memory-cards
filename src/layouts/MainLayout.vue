@@ -18,7 +18,11 @@
           </span>
         </q-toolbar-title>
         <q-btn v-if="!loggedIn" to="/auth" icon-right="account_circle" flat label="login"  class="absolute-right"/>
-        <q-btn v-else @click="logoutUser" icon-right="account_circle" flat label="logout"  class="absolute-right"/>
+        <q-btn v-else @click="logoutUser"  flat label="logout"  class="absolute-right">
+          <q-avatar size="sm" class="q-pl-sm">
+            <img :src="user.image">
+          </q-avatar>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -47,6 +51,14 @@
               <q-item-label>Cards</q-item-label>
             </q-item-section>
           </q-item>
+          <q-item clickable to="/cards-user" exact>
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>User Cards</q-item-label>
+            </q-item-section>
+          </q-item>
           <q-item v-if="loggedIn && admin" clickable to="/cards-admin" exact>
             <q-item-section avatar>
               <q-icon name="list" />
@@ -68,7 +80,7 @@
       <q-img v-if="loggedIn" class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
         <div class="absolute-bottom bg-transparent">
           <q-avatar size="56px" class="q-mb-sm">
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <q-img :src="user.image"/>
           </q-avatar>
           <div class="text-weight-bold">{{user.name}}</div>
           <div>{{user.mail}}</div>

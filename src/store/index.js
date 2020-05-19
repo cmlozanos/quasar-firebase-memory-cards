@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import game from './store-game'
 import cards from './store-cards'
+import userCards from './store-user-cards'
 import gameplays from './store-gameplays'
 import auth from './store-auth'
 
@@ -23,7 +24,8 @@ export default function (/* { ssrContext } */) {
       game,
       cards,
       gameplays,
-      auth
+      auth,
+      userCards
     },
 
     // enable strict mode (adds overhead!)

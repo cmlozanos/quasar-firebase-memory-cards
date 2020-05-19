@@ -59,7 +59,6 @@ export default {
       }
       this.initStore()
 
-      console.log('interval: ' + this.interval)
       if (this.interval) {
         clearInterval(this.interval)
       }

@@ -4,8 +4,9 @@ const state = {
   loggedIn: false,
   admin: false,
   user: {
-    name: 'Carlos',
-    mail: 'carlosmlozanos@gmail.com'
+    name: null,
+    mail: null,
+    image: null
   }
 }
 
@@ -30,7 +31,7 @@ const actions = {
     Loading.show()
     commit('setLoggedIn', false)
     commit('setAdmin', false)
-    commit('setUser', { name: null, mail: null })
+    commit('setUser', { name: null, mail: null, image: null })
 
     /** THIS MUST BE INTO HANDLE */
     LocalStorage.set('loggedIn', false)
@@ -43,7 +44,7 @@ const actions = {
     Loading.show()
     commit('setLoggedIn', true)
     commit('setAdmin', true)
-    commit('setUser', { name: 'Carlos', mail: 'carlosmlozanos@gmail.com' })
+    commit('setUser', { name: 'Carlos', mail: 'carlosmlozanos@gmail.com', image: 'https://cdn.quasar.dev/img/boy-avatar.png' })
 
     /** THIS MUST BE INTO HANDLE */
     LocalStorage.set('loggedIn', true)

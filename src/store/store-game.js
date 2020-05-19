@@ -104,7 +104,7 @@ const actions = {
       commit('setUnCheckedImage', index)
     })
   },
-  checkGameStatus ({ commit, dispatch }, value) {
+  checkGameStatus ({ commit, dispatch, rootState }, value) {
     const pending = state.cardsSelected.filter(card => !card.data.checked).length
     if (pending === 0) {
       const dateTimeStart = new Date(state.timeStart)
@@ -121,6 +121,9 @@ const actions = {
         spent: dateWithoutOffset,
         spent_formatted: time
       }
+      const cards = []
+      state.cardsSelected.forEach(card => cards.push(card.id))
+      dispatch('addUserCards', { user: rootState.auth.user.mail, cards: cards }, { root: true })
       dispatch('addGameplay', data, { root: true })
       clearInterval(state.interval)
       commit('setFinished', true)

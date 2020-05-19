@@ -4,7 +4,7 @@
       <template v-slot:avatar>
         <q-icon name="account_circle" color="primary" />
       </template>
-      {{tab | capitalize}} to acces your Todos anywhere
+      {{tab | capitalize}} to acces your cards
     </q-banner>
     <q-form
       @submit="onSubmit"
