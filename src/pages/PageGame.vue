@@ -13,10 +13,10 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
-    gameInfo: require('src/components/GameInfo.vue').default,
-    gameImageCards: require('src/components/GameImageCards.vue').default,
-    gameTextCards: require('src/components/GameTextCards.vue').default,
-    gameFinished: require('src/components/GameFinished.vue').default
+    gameInfo: require('src/components/Game/GameInfo.vue').default,
+    gameImageCards: require('src/components/Game/GameImageCards.vue').default,
+    gameTextCards: require('src/components/Game/GameTextCards.vue').default,
+    gameFinished: require('src/components/Game/GameFinished.vue').default
   },
   computed: {
     ...mapGetters('game', ['timeStart', 'playing', 'finished', 'interval', 'size', 'end']),

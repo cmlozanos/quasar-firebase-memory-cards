@@ -13,7 +13,7 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
-
+      'router-auth',
       'i18n',
       'axios'
     ],
@@ -55,7 +55,11 @@ module.exports = function (/* ctx */) {
       directives: [],
 
       // Quasar plugins
-      plugins: ['Loading', 'Notify', 'Dialog']
+      plugins: [
+        'Loading',
+        'LocalStorage',
+        'Notify',
+        'Dialog']
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie

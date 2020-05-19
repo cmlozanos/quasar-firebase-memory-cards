@@ -4,11 +4,12 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '/', component: () => import('pages/Index.vue') },
-      { path: '/game', component: () => import('pages/Game.vue') },
-      { path: '/cards', component: () => import('pages/Cards.vue') },
-      { path: '/cards-admin', component: () => import('pages/CardsAdmin.vue') },
-      { path: '/gameplays', component: () => import('pages/GamePlays.vue') }
+      { name: 'Home', path: '/', component: () => import('pages/PageIndex.vue') },
+      { name: 'Game', path: '/game', component: () => import('pages/PageGame.vue') },
+      { name: 'Cards', path: '/cards', component: () => import('pages/PageCards.vue') },
+      { name: 'CardsAdmin', path: '/cards-admin', component: () => import('pages/PageCardsAdmin.vue') },
+      { name: 'Gameplays', path: '/gameplays', component: () => import('pages/PageGamePlays.vue') },
+      { name: 'Auth', path: '/auth', component: () => import('pages/PageAuth.vue') }
     ]
   }
 ]
@@ -17,7 +18,7 @@ const routes = [
 if (process.env.MODE !== 'ssr') {
   routes.push({
     path: '*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('pages/PageError404.vue')
   })
 }
 
