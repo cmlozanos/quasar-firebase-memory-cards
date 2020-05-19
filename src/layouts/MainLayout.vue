@@ -125,6 +125,5 @@ export default {
   white-space:nowrap;
   width:80.125px;
   -webkit-font-smoothing:antialiased;
-  -webkit-tap-highlight-color:
 }
 </style>

@@ -34,6 +34,10 @@ export default {
   },
   methods: {
     ...mapActions('game', ['exitPlaying', 'setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected', 'saveInterval', 'initStore', 'setEnd']),
+    calculateTimeSpent () {
+      const spent = Date.now() - this.timeStart
+      this.setTimeSpent(spent)
+    },
     initGame () {
       const pendingCards = Object.entries(this.cards).filter(([key, value]) => !value.checked)
       if (pendingCards.length === 0) {
@@ -55,6 +59,7 @@ export default {
       }
       this.initStore()
 
+      console.log('interval: ' + this.interval)
       if (this.interval) {
         clearInterval(this.interval)
       }

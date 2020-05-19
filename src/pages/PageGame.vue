@@ -23,11 +23,7 @@ export default {
     ...mapGetters('cards', ['cards'])
   },
   methods: {
-    ...mapActions('game', ['setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected', 'saveInterval', 'initStore', 'setEnd']),
-    calculateTimeSpent () {
-      const spent = Date.now() - this.timeStart
-      this.setTimeSpent(spent)
-    }
+    ...mapActions('game', ['setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected', 'saveInterval', 'initStore', 'setEnd'])
   },
   mounted () {
   }
