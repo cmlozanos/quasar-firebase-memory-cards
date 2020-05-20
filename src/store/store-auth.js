@@ -1,4 +1,6 @@
 import { LocalStorage, Loading } from 'quasar'
+import { firebase } from 'boot/firebase'
+import { showErrorMessage } from 'src/functions/function-show-error-message'
 
 const state = {
   loggedIn: false,
@@ -25,58 +27,59 @@ const mutations = {
 const actions = {
   registerUser ({ commit }, payload) {
     Loading.show()
+    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      .then((response) => {
+        Loading.hide()
+      })
+      .catch((error) => {
+        Loading.hide()
+        showErrorMessage(error.message)
+      })
     Loading.hide()
   },
   logoutUser ({ commit }) {
     Loading.show()
-    commit('setLoggedIn', false)
-    commit('setAdmin', false)
-    commit('setUser', { name: null, mail: null, image: null })
-
-    /** THIS MUST BE INTO HANDLE */
-    LocalStorage.set('loggedIn', false)
-    this.$router.replace('/auth')
-    /** THIS MUST BE INTO HANDLE */
-
+    firebase.auth().signOut()
     Loading.hide()
   },
   loginUser ({ commit }, payload) {
     Loading.show()
-    commit('setLoggedIn', true)
-    commit('setAdmin', true)
-    commit('setUser', { name: 'Carlos', mail: 'carlosmlozanos@gmail.com', image: 'https://cdn.quasar.dev/img/boy-avatar.png' })
-
-    /** THIS MUST BE INTO HANDLE */
-    LocalStorage.set('loggedIn', true)
-    if (this.$router.currentRoute.path !== '/') {
-      this.$router.replace('/')
-    }
-    /** THIS MUST BE INTO HANDLE */
-
-    Loading.hide()
+    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      .then((response) => {
+        Loading.hide()
+      })
+      .catch((error) => {
+        Loading.hide()
+        showErrorMessage(error.message)
+      })
   },
   handleAuthStateChange ({ commit, dispatch }) {
-    /*
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log('logged in')
         commit('setLoggedIn', true)
+        commit('setAdmin', true)
+        const data = {
+          name: user.email.substr(0, user.email.indexOf('@')),
+          mail: user.email,
+          image: 'https://cdn.quasar.dev/img/boy-avatar.png'
+        }
+        commit('setUser', data)
         LocalStorage.set('loggedIn', true)
+        dispatch('cards/fbReadData', null, { root: true })
+        dispatch('userCards/fbReadData', null, { root: true })
         if (this.$router.currentRoute.path !== '/') {
           this.$router.replace('/')
         }
       } else {
-        console.log('logged out')
         commit('setLoggedIn', false)
+        commit('setAdmin', false)
+        commit('setUser', { name: null, mail: null, image: null })
         LocalStorage.set('loggedIn', false)
-        this.$router.replace('/auth')
+        if (this.$router.currentRoute.path !== '/auth') {
+          this.$router.replace('/auth')
+        }
       }
     })
-    */
-    dispatch('loginUser')
-    if (this.$router.currentRoute.path !== '/') {
-      this.$router.replace('/')
-    }
   }
 }
 

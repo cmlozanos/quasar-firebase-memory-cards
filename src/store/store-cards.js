@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import { uid } from 'quasar'
+import { firebase } from 'boot/firebase'
 
 const state = {
   cards: {
+    /*
     ID1: {
       url: 'https://placeimg.com/400/300/nature?t=' + Math.random(),
       text: 'texto_1',
@@ -48,6 +50,7 @@ const state = {
       text: 'texto_9',
       checked: false
     }
+    */
   }
 }
 const mutations = {
@@ -62,19 +65,31 @@ const mutations = {
   }
 }
 const actions = {
-  addCard ({ commit }, card) {
+  addCard ({ commit, dispatch }, card) {
     const id = uid()
     const payload = {
       id: id,
       card: card
     }
-    commit('addCard', payload)
+    // commit('addCard', payload)
+    dispatch('fbWriteData', payload)
   },
   updateCard ({ commit }, payload) {
     commit('updateCard', payload)
   },
   deleteCard ({ commit }, id) {
     commit('deleteCard', id)
+  },
+  fbWriteData ({ commit }, payload) {
+    firebase.database().ref('cards/' + payload.id).set(payload.card)
+  },
+  fbReadData ({ commit }, payload) {
+    // const uid = firebase.auth().currentUser.uid
+    // const result = firebase.database().ref('cards/' + uid)
+    const cards = firebase.database().ref('cards')
+    cards.on('child_added', snapshot => {
+      commit('addCard', { id: snapshot.key, card: snapshot.val() })
+    })
   }
 }
 const getters = {

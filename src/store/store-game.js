@@ -13,7 +13,7 @@ const state = {
   itemTexts: [],
   cardsSelected: [],
   interval: null,
-  size: 4
+  size: 2
 }
 
 const mutations = {

@@ -82,7 +82,7 @@
           <q-avatar size="56px" class="q-mb-sm">
             <q-img :src="user.image"/>
           </q-avatar>
-          <div class="text-weight-bold">{{user.name}}</div>
+          <div class="text-weight-bold capitalize">{{user.name}}</div>
           <div>{{user.mail}}</div>
         </div>
       </q-img>
@@ -109,6 +109,13 @@ export default {
   },
   methods: {
     ...mapActions('auth', ['loginUser', 'logoutUser'])
+  },
+  filters: {
+    toCamelCase: (value) => {
+      return value.replace(/\W+(.)/g, function (match, chr) {
+        return chr.toUpperCase()
+      })
+    }
   }
 }
 </script>
@@ -137,5 +144,8 @@ export default {
   white-space:nowrap;
   width:80.125px;
   -webkit-font-smoothing:antialiased;
+}
+.capitalize{
+  text-transform: capitalize
 }
 </style>

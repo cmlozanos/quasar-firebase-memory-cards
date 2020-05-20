@@ -1,6 +1,12 @@
 <template>
   <div class="q-pa-md">
     <q-page>
+      <q-banner class="bg-grey-3 full-width" v-if="Object.entries(cards).length === 0">
+        <template v-slot:avatar>
+          <q-icon name="check" color="green" />
+        </template>
+        No Cards found
+      </q-banner>
       <q-list separator>
         <card-admin
           v-for="(card,index) in cards"

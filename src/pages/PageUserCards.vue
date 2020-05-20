@@ -33,7 +33,7 @@ export default {
     ...mapGetters('userCards', ['userCards']),
     ...mapGetters('cards', ['cards']),
     userCardsPlayed () {
-      const userCards = this.userCards(this.user.mail)
+      const userCards = this.userCards
       const userCardsCalculated = Object.entries(this.cards).filter(([key, card]) => {
         const userCardIndex = userCards.indexOf(key)
         return userCardIndex >= 0
