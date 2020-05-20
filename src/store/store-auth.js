@@ -9,8 +9,7 @@ const state = {
     mail: null,
     image: null,
     admin: false
-  },
-  userData: {}
+  }
 }
 
 const mutations = {
@@ -36,6 +35,7 @@ const actions = {
           mail: email,
           image: 'https://cdn.quasar.dev/img/boy-avatar.png'
         }
+        console.log('userData: ' + JSON.stringify(data))
         dispatch('fbWriteData', data)
         Loading.hide()
       })
@@ -44,6 +44,18 @@ const actions = {
         showErrorMessage(error.message)
       })
     Loading.hide()
+  },
+  updateUser ({ commit, dispatch }, data) {
+    console.log('state: ' + JSON.stringify(state))
+    const admin = state.user.admin === true
+    const userData = {
+      name: data.name,
+      mail: state.user.mail,
+      image: data.image,
+      admin: admin
+    }
+    console.log('userData: ' + JSON.stringify(userData))
+    dispatch('fbWriteData', userData)
   },
   logoutUser ({ commit }) {
     Loading.show()

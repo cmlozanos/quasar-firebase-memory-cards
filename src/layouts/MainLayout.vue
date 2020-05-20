@@ -87,6 +87,9 @@
           <div class="text-weight-bold capitalize">{{user.name}}</div>
           <div>{{user.mail}}</div>
         </div>
+        <div class="absolute-top-right bg-transparent">
+          <q-btn round size="sm" flat icon="edit" to="/user"></q-btn>
+        </div>
       </q-img>
     </q-drawer>
 

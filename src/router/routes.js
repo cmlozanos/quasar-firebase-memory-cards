@@ -10,7 +10,8 @@ const routes = [
       { name: 'UserCards', path: '/cards-user', component: () => import('pages/PageUserCards.vue') },
       { name: 'CardsAdmin', path: '/cards-admin', component: () => import('pages/PageCardsAdmin.vue') },
       { name: 'Gameplays', path: '/gameplays', component: () => import('pages/PageGamePlays.vue') },
-      { name: 'Auth', path: '/auth', component: () => import('pages/PageAuth.vue') }
+      { name: 'Auth', path: '/auth', component: () => import('pages/PageAuth.vue') },
+      { name: 'User', path: '/user', component: () => import('pages/PageUser.vue') }
     ]
   }
 ]
