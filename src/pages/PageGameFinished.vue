@@ -1,28 +1,54 @@
 <template>
-  <div
-    class="q-col-gutter-md row items-start"
-    v-if="!playing"
-  >
-    <div class="col-12">
-      <q-img v-if="finished && !end" src="~assets/game-finished.png">
-        <div class="absolute-bottom row">
-          <q-btn outline icon="play_arrow" class="col-6" @click="initGame">Next Play</q-btn>
-          <q-btn outline icon="list" class="col-6" to="/gameplays">Game Plays</q-btn>
-        </div>
-      </q-img>
-      <q-img v-if="!finished && !end" src="~assets/game-press-start.jpg">
-        <div class="absolute-bottom">
-          <q-btn outline icon="play_arrow" class="full-width" @click="initGame">START</q-btn>
-        </div>
-      </q-img>
-      <q-img v-if="end" src="~assets/game-end.jpg">
-        <div class="absolute-bottom row">
-          <q-btn outline icon="list" class="col-6" to="/cards">Cards</q-btn>
-          <q-btn outline icon="list" class="col-6" to="/gameplays">Game Plays</q-btn>
-        </div>
-      </q-img>
+  <q-page class="flex flex-center bg-image" :class="imageClass">
+    <div class="absolute-bottom q-pb-xl q-pl-sm q-pr-sm">
+      <q-btn-group spread v-if="finished && !end">
+        <q-btn
+          size="medium"
+          color="blue-10"
+          class="col-6"
+          icon="play_arrow"
+          @click="initGame">
+          Next Play
+        </q-btn>
+        <q-btn
+          size="medium"
+          color="blue-10"
+          class="col-6"
+          icon="list"
+          to="/gameplays">
+          Game Plays
+        </q-btn>
+      </q-btn-group>
+      <q-btn-group spread v-if="end">
+        <q-btn
+          size="medium"
+          color="blue-10"
+          class="col-6"
+          icon="play_arrow"
+          to="/cards">
+          Cards
+        </q-btn>
+        <q-btn
+          size="medium"
+          color="blue-10"
+          class="col-6"
+          icon="list"
+          to="/gameplays">
+          Game Plays
+        </q-btn>
+      </q-btn-group>
+      <q-btn-group spread v-if="!finished && !end">
+        <q-btn
+          size="medium"
+          color="blue-10"
+          class="col-6"
+          icon="play_arrow"
+          @click="initGame">
+          START
+        </q-btn>
+      </q-btn-group>
     </div>
-  </div>
+  </q-page>
 </template>
 <script>
 import { shuffle } from 'src/functions/function-shuffle-array'
@@ -32,7 +58,17 @@ export default {
   computed: {
     ...mapGetters('game', ['timeStart', 'playing', 'finished', 'interval', 'size', 'end']),
     ...mapGetters('cards', ['cards']),
-    ...mapGetters('userCards', ['userCards'])
+    ...mapGetters('userCards', ['userCards']),
+    imageClass () {
+      if (this.finished && !this.end) {
+        return 'finished-not-end'
+      } else if (!this.finished && !this.end) {
+        return 'start'
+      } else if (this.end) {
+        return 'end'
+      }
+      return ''
+    }
   },
   methods: {
     ...mapActions('game', ['exitPlaying', 'setTimeSpent', 'setItemImages', 'setItemTexts', 'setCardsSelected', 'saveInterval', 'initStore', 'setEnd']),
@@ -94,3 +130,23 @@ export default {
   }
 }
 </script>
+<style scope>
+.bg-image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.bg-image.finished-not-end{
+  background-image: url('~assets/game-finished.png');
+}
+.bg-image.end{
+  background-image: url('~assets/game-end.jpg');
+}
+.bg-image.start{
+  background-image: url('~assets/game-start.jpg');
+}
+.eighty-vertical-hight{
+  width: 100vh !important;
+  height: 100vh !important;
+}
+</style>
