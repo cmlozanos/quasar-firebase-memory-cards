@@ -84,8 +84,6 @@ export default {
     },
     initGame () {
       const pendingCards = Object.entries(this.userCardsPending())
-      console.log('pendingCards.length: ' + pendingCards.length)
-      console.log('size: ' + this.size)
       if (pendingCards.length === 0) {
         this.$q.notify({
           timeout: 500,

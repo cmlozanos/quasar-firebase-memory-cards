@@ -31,14 +31,12 @@ const actions = {
   },
   fbWriteData ({ commit }, value) {
     const uid = firebase.auth().currentUser.uid
-    console.log('Gameplays write: ' + JSON.stringify(value))
     firebase.database().ref('user-gameplays/' + uid + '/gameplays').set(value)
   },
   fbReadData ({ commit }) {
     const uid = firebase.auth().currentUser.uid
     const gameplaysRef = firebase.database().ref('user-gameplays/' + uid + '/gameplays')
     gameplaysRef.on('value', snapshot => {
-      console.log('Gameplays: ' + JSON.stringify(snapshot.val()))
       if (snapshot.val() !== null) {
         commit('setGamePlays', snapshot.val())
       } else {
