@@ -10,6 +10,14 @@
         <q-btn flat round dense size="x-small" icon="close" v-close-popup/>
       </q-card-section>
 
+      <q-card-section class="row justify-center" v-if="cardToSubmit.url">
+        <q-img
+          :src="cardToSubmit.url"
+          style="height: 140px"
+        >
+        </q-img>
+      </q-card-section>
+
       <q-card-section class="q-pt-none">
         <q-input
           outlined

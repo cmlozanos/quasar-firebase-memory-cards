@@ -123,7 +123,7 @@ const actions = {
       }
       const cards = []
       state.cardsSelected.forEach(card => cards.push(card.id))
-      dispatch('addUserCards', { user: rootState.auth.user.mail, cards: cards }, { root: true })
+      dispatch('addUserCards', cards, { root: true })
       dispatch('addGameplay', data, { root: true })
       clearInterval(state.interval)
       commit('setFinished', true)

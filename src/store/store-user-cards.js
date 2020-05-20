@@ -4,11 +4,11 @@ const state = {
   cards: []
 }
 const mutations = {
-  addUserCards (state, payload) {
-    state.cards = state.cards.concat(payload.cards)
-  },
   addUserCard (state, payload) {
     state.cards.push(payload.card)
+  },
+  setUserCards (state, value) {
+    state.cards = value
   },
   resetUserCards (state) {
     state.cards = []
@@ -18,29 +18,32 @@ const actions = {
   resetUserCards ({ commit }) {
     commit('resetUserCards')
   },
+  setUserCards ({ commit }, value) {
+    commit('setUserCards', value)
+  },
   addUserCards: {
     root: true,
-    handler ({ commit, dispatch }, payload) {
+    handler ({ commit, dispatch }, value) {
       let fullCards = null
       if (state.cards === null) {
-        fullCards = payload.cards
+        fullCards = value
       } else {
-        fullCards = state.cards.concat(payload.cards)
+        fullCards = state.cards.concat(value)
       }
-      payload.cards = fullCards
-      dispatch('fbWriteData', payload)
+      value = fullCards
+      dispatch('fbWriteData', value)
     }
   },
-  fbWriteData ({ commit }, payload) {
+  fbWriteData ({ commit }, value) {
     const uid = firebase.auth().currentUser.uid
-    firebase.database().ref('user-cards/' + uid + '/cards').set(payload.cards)
+    firebase.database().ref('user-cards/' + uid + '/cards').set(value)
   },
-  fbReadData ({ commit }, payload) {
+  fbReadData ({ commit }) {
     const uid = firebase.auth().currentUser.uid
     const cards = firebase.database().ref('user-cards/' + uid + '/cards')
     cards.on('value', snapshot => {
       if (snapshot.val() !== null) {
-        commit('addUserCards', { cards: snapshot.val() })
+        commit('setUserCards', snapshot.val())
       } else {
         commit('resetUserCards')
       }
@@ -48,7 +51,6 @@ const actions = {
   }
 }
 const getters = {
-  /* userCards: (state) => (user) => state[user].cards */
   userCards: (state) => state.cards
 }
 export default {

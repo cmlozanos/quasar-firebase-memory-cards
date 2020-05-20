@@ -22,7 +22,7 @@ const actions = {
     dispatch('fbWriteData', payload)
   },
   updateCard ({ dispatch }, payload) {
-    dispatch('fbWriteData', { id: payload.id, card: payload.updates })
+    dispatch('fbWriteData', payload)
   },
   deleteCard ({ dispatch }, id) {
     dispatch('fbWriteData', { id: id, card: null })
