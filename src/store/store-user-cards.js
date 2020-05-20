@@ -4,9 +4,6 @@ const state = {
   cards: []
 }
 const mutations = {
-  addUserCard (state, payload) {
-    state.cards.push(payload.card)
-  },
   setUserCards (state, value) {
     state.cards = value
   },
@@ -40,8 +37,8 @@ const actions = {
   },
   fbReadData ({ commit }) {
     const uid = firebase.auth().currentUser.uid
-    const cards = firebase.database().ref('user-cards/' + uid + '/cards')
-    cards.on('value', snapshot => {
+    const cardsRef = firebase.database().ref('user-cards/' + uid + '/cards')
+    cardsRef.on('value', snapshot => {
       if (snapshot.val() !== null) {
         commit('setUserCards', snapshot.val())
       } else {

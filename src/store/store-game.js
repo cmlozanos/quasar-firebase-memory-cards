@@ -107,18 +107,13 @@ const actions = {
   checkGameStatus ({ commit, dispatch, rootState }, value) {
     const pending = state.cardsSelected.filter(card => !card.data.checked).length
     if (pending === 0) {
-      const dateTimeStart = new Date(state.timeStart)
-      const dateTimeStartOffset = dateTimeStart.getTimezoneOffset()
-      const dateTimeStartWithoutOffset = date.addToDate(dateTimeStart, { minutes: dateTimeStartOffset })
-
       const dateValue = new Date(state.timeSpent)
       const dateValueOffset = dateValue.getTimezoneOffset()
       const dateWithoutOffset = date.addToDate(dateValue, { minutes: dateValueOffset })
       const time = dateWithoutOffset.toLocaleTimeString()
       const data = {
         clicks: state.clicks,
-        init: dateTimeStartWithoutOffset,
-        spent: dateWithoutOffset,
+        init: state.timeStart,
         spent_formatted: time
       }
       const cards = []

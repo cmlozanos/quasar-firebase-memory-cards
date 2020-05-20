@@ -13,16 +13,11 @@
 </template>
 
 <script>
-import { date } from 'quasar'
 export default {
   props: ['gameplay', 'id'],
   filters: {
     formatDate: (value) => {
-      const dateValue = new Date(value)
-      const dateValueOffset = dateValue.getTimezoneOffset()
-      const dateWithoutOffset = date.addToDate(dateValue, { minutes: dateValueOffset })
-      const result = dateWithoutOffset.toLocaleTimeString()
-      return result
+      return new Date(value).toLocaleTimeString()
     }
   }
 }

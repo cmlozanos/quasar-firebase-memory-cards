@@ -67,6 +67,7 @@ const actions = {
         LocalStorage.set('loggedIn', true)
         dispatch('cards/fbReadData', null, { root: true })
         dispatch('userCards/fbReadData', null, { root: true })
+        dispatch('gameplays/fbReadData', null, { root: true })
         if (this.$router.currentRoute.path !== '/') {
           this.$router.replace('/')
         }

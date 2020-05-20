@@ -1,38 +1,50 @@
 import Vue from 'vue'
 import { uid } from 'quasar'
+import { firebase } from 'boot/firebase'
 
 const state = {
-  gameplays: {
-  }
+  gameplays: {}
 }
 const mutations = {
   addGameplay (state, payload) {
     Vue.set(state.gameplays, payload.id, payload.gameplay)
   },
-  updateGameplay (state, payload) {
-    Object.assign(state.gameplays[payload.id], payload.updates)
+  setGamePlays (state, value) {
+    state.gameplays = value
   },
-  deleteGameplay (state, id) {
-    Vue.delete(state.gameplays, id)
+  resetGamePlays (state) {
+    state.gameplays = {}
   }
 }
 const actions = {
   addGameplay: {
     root: true,
-    handler ({ commit }, gameplay) {
+    handler ({ commit, dispatch }, gameplay) {
       const id = uid()
       const payload = {
         id: id,
         gameplay: gameplay
       }
       commit('addGameplay', payload)
+      dispatch('fbWriteData', state.gameplays)
     }
   },
-  updateGameplay ({ commit }, payload) {
-    commit('updateGameplay', payload)
+  fbWriteData ({ commit }, value) {
+    const uid = firebase.auth().currentUser.uid
+    console.log('Gameplays write: ' + JSON.stringify(value))
+    firebase.database().ref('user-gameplays/' + uid + '/gameplays').set(value)
   },
-  deleteGameplay ({ commit }, id) {
-    commit('deleteGameplay', id)
+  fbReadData ({ commit }) {
+    const uid = firebase.auth().currentUser.uid
+    const gameplaysRef = firebase.database().ref('user-gameplays/' + uid + '/gameplays')
+    gameplaysRef.on('value', snapshot => {
+      console.log('Gameplays: ' + JSON.stringify(snapshot.val()))
+      if (snapshot.val() !== null) {
+        commit('setGamePlays', snapshot.val())
+      } else {
+        commit('resetGamePlays')
+      }
+    })
   }
 }
 const getters = {
