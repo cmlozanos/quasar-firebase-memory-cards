@@ -24,7 +24,7 @@
           size="medium"
           color="blue-10"
           class="col-6"
-          icon="play_arrow"
+          icon="list"
           to="/cards">
           Cards
         </q-btn>

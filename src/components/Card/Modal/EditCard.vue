@@ -30,7 +30,6 @@
         <q-input
           outlined
           clearable
-          autofocus
           v-model="cardToSubmit.text"
           label="Text"
           :rules="[val => !!val || 'Field is required']

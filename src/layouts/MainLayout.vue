@@ -51,6 +51,7 @@
               <q-item-label>Cards</q-item-label>
             </q-item-section>
           </q-item>
+          <!--
           <q-item clickable to="/cards-user" exact>
             <q-item-section avatar>
               <q-icon name="list" />
@@ -59,6 +60,7 @@
               <q-item-label>User Cards</q-item-label>
             </q-item-section>
           </q-item>
+          -->
           <q-item v-if="loggedIn && admin" clickable to="/cards-admin" exact>
             <q-item-section avatar>
               <q-icon name="list" />
