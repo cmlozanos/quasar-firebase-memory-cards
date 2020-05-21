@@ -5,12 +5,14 @@
       class="q-mt-md"
     >
       <div class="row">
-        <div class="col-4">
-          <q-img :src="formData.image">
-          </q-img>
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+          <div class="q-pa-sm">
+            <q-img :src="formData.image">
+            </q-img>
+          </div>
         </div>
-        <div class="col-8">
-          <div class="q-pl-sm">
+        <div class="col-xs-12 col-sm-8 col-md-19 col-lg-10">
+          <div class="q-pa-sm">
 
             <q-input
               filled
