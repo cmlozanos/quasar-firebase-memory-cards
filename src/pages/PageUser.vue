@@ -7,7 +7,17 @@
       <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
           <div class="q-pa-sm">
-            <q-img :src="formData.image" @click="showPhotoUpload('profile')">
+            <q-img
+              :src="formData.image === null ? 'error' : formData.image"
+              @click="showPhotoUpload('profile')"
+              style="height: 140px"
+            >
+            >
+            <template v-slot:error>
+              <div class="absolute-full flex flex-center bg-negative text-white">
+                Cannot load image
+              </div>
+            </template>
             </q-img>
           </div>
         </div>
@@ -90,8 +100,12 @@ export default {
       })
     },
     uploadComplete (info) {
+      const uid = firebase.auth().currentUser.uid
       const fileNames = []
-      info.files.forEach(file => fileNames.push(file))
+      info.files.forEach(file => {
+        fileNames.push(file.name)
+        firebase.database().ref('users/' + uid).update({ image: file.link })
+      })
       this.photoUpload = false
       Object.assign(this.formData, this.user)
       this.$q.notify({

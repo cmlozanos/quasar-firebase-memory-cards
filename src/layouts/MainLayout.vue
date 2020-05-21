@@ -81,7 +81,7 @@
       </q-scroll-area>
       <q-img v-if="loggedIn" class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
         <div class="absolute-bottom bg-transparent">
-          <q-avatar size="56px" class="q-mb-sm">
+          <q-avatar size="70px" class="q-mb-sm">
             <q-img :src="user.image"/>
           </q-avatar>
           <div class="text-weight-bold capitalize">{{user.name}}</div>

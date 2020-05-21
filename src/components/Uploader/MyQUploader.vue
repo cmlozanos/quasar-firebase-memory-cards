@@ -2,8 +2,6 @@
 import { QUploaderBase } from 'quasar'
 import { firebase } from 'boot/firebase'
 export default {
-  name: 'FBQUploader',
-
   mixins: [QUploaderBase],
   props: {
     meta: {
@@ -72,7 +70,7 @@ export default {
     },
 
     uploadFileToFirestore (file) {
-      const uid = firebase.auth().currentUser.uid
+      // const uid = firebase.auth().currentUser.uid
       const index = this.filesUploading.length
       const fileSuffix = file.type.split('/')[1]
       const uploadImageStorageRef = firebase.storage().ref('images/' + this.prefixPath + fileSuffix)
@@ -95,8 +93,8 @@ export default {
           this.files.forEach(async file => {
             this.updateComponent(index, 0, 'uploaded')
             const link = await profileImageStorageRef.snapshot.ref.getDownloadURL()
-            firebase.database().ref('users/' + uid).update({ image: link })
-            this.$emit('uploaded', { files: [file.name] })
+            // firebase.database().ref('users/' + uid).update({ image: link })
+            this.$emit('uploaded', { files: [{ name: file.name, link: link }] })
           })
           resolve()
         })
