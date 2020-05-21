@@ -33,9 +33,8 @@ const actions = {
         const data = {
           name: email.substr(0, email.indexOf('@')),
           mail: email,
-          image: 'https://cdn.quasar.dev/img/boy-avatar.png'
+          image: 'https://placeimg.com/500/300/nature?t=' + Math.random()
         }
-        console.log('userData: ' + JSON.stringify(data))
         dispatch('fbWriteData', data)
         Loading.hide()
       })
@@ -46,16 +45,7 @@ const actions = {
     Loading.hide()
   },
   updateUser ({ commit, dispatch }, data) {
-    console.log('state: ' + JSON.stringify(state))
-    const admin = state.user.admin === true
-    const userData = {
-      name: data.name,
-      mail: state.user.mail,
-      image: data.image,
-      admin: admin
-    }
-    console.log('userData: ' + JSON.stringify(userData))
-    dispatch('fbWriteData', userData)
+    dispatch('fbUpdateData', { name: data.name })
   },
   logoutUser ({ commit }) {
     Loading.show()
@@ -94,6 +84,10 @@ const actions = {
         }
       }
     })
+  },
+  fbUpdateData ({ commit }, value) {
+    const uid = firebase.auth().currentUser.uid
+    firebase.database().ref('users/' + uid).update(value)
   },
   fbWriteData ({ commit }, value) {
     const uid = firebase.auth().currentUser.uid
