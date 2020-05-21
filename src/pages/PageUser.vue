@@ -84,6 +84,10 @@ export default {
     ...mapActions('auth', ['updateUser']),
     onSubmit () {
       this.updateUser(this.formData)
+      this.$q.notify({
+        message: 'Successfully uploaded profile',
+        color: 'positive'
+      })
     },
     uploadComplete (info) {
       const fileNames = []
